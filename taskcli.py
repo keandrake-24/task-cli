@@ -43,13 +43,24 @@ def add_task(data: dict ,task_name: str ,status: str) -> dict:
     return data
 
 
-def list_tasks(data: dict) -> dict:
+def list_tasks(data: dict, list_what = None):
+    valid_list_options = ["incomplete", "in progress", "complete"]
+    if list_what not in valid_list_options and list_what is not None:
+        print(f"Invalid list option: {list_what}. Valid options are: {valid_list_options}")
+        
     for task in data["tasks"]:
-        print(task)
-        task_dict = data["tasks"][task]
-        for property in task_dict:
-            print(f"{property} : {task_dict[property]}")
-
+        if data["tasks"][task]["status"] != list_what and list_what is not None:
+            print(task)
+            task_dict = data["tasks"][task]
+            for property in task_dict:
+                print(f"{property} : {task_dict[property]}")
+def change_status(data: dict,task_id: int, option: int) -> dict:
+    valid_list_options = ["incomplete", "in progress", "complete"]
+    for task in data:
+        if data["tasks"][task]['id'] == task_id:
+            selected_task = task
+    data["tasks"][selected_task]['status'] = valid_list_options[option]
+    return data
 #</functions>
 
 
