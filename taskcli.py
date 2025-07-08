@@ -27,12 +27,17 @@ def add_task(data: dict ,task_name: str ,status: str) -> dict:
         num_tasks += 1
 
     string_time = cur_date.strftime("%Y-%m-%d %H:%M:%S")
-
+    if input("Would you like to add a description to this task? y/n") == 'y':
+        description = input("Please type in your description...")
+    else:
+        print("Description will be empty for this task")
+        description = ''    
     data["tasks"][task_name] = {
         "id" : num_tasks + 1,
+        "description" : description,
         "status" : status,
-        "CreatedAt" : string_time
-                             
+        "CreatedAt" : string_time,
+        "UpdatedAt" : string_time                     
         }
     print(f"Task {task_name} created with ID of {num_tasks + 1}")
     return data
