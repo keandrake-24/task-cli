@@ -34,14 +34,16 @@ def list_tasks(data: dict) -> dict:
         for property in task_dict:
             print(f"{property} : {task_dict[property]}")
 
-
-if sys.argv[1] == 'add':
-    try:
-        data = add_task(data,sys.argv[2],"incomplete")
-    except:
-        print("Please input a valid task name")
-elif sys.argv[1] == 'list':
-    list_tasks(data)
-
+try:
+    if sys.argv[1] == 'add':
+        try:
+            data = add_task(data,sys.argv[2],"incomplete")
+        except:
+            print("Please input a valid task name")
+    elif sys.argv[1] == 'list':
+        list_tasks(data)
+except:
+    print("Please input a working command:")
+    
 with open("data.json","w") as file:
     json.dump(data,file,indent=2)
