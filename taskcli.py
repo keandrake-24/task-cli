@@ -16,6 +16,9 @@ except:
         json.dump(data_template,file,indent=2)
         data = data_template
 
+
+#<functions>
+
 def add_task(data: dict ,task_name: str ,status: str) -> dict:
     cur_date = datetime.now()
     num_tasks = 0
@@ -28,7 +31,8 @@ def add_task(data: dict ,task_name: str ,status: str) -> dict:
     data["tasks"][task_name] = {
         "id" : num_tasks + 1,
         "status" : status,
-        "CreatedAt" : string_time                     
+        "CreatedAt" : string_time
+                             
         }
     print(f"Task {task_name} created with ID of {num_tasks + 1}")
     return data
@@ -41,6 +45,12 @@ def list_tasks(data: dict) -> dict:
         for property in task_dict:
             print(f"{property} : {task_dict[property]}")
 
+#</functions>
+
+
+
+
+#<argumentprocessing>
 try:
     if sys.argv[1] == 'add':
         try:
@@ -53,6 +63,7 @@ except:
     print("Please input a working command:")
     print("taskcli.py add taskname: adds a task with name taskname")
     print("taskcli.py list: lists all tasks and various info about each task")
+#</argumentprocessing>
 
 with open("data.json","w") as file:
     json.dump(data,file,indent=2)
