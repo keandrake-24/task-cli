@@ -44,10 +44,10 @@ def add_task(data: dict ,task_name: str ,status: str) -> dict:
 
 
 def list_tasks(data: dict, list_what = None):
-    valid_list_options = ["incomplete", "in progress", "complete"]
+    valid_list_options = ["incomplete", "in-progress", "complete"]
     if list_what not in valid_list_options and list_what is not None:
         print(f"Invalid list option: {list_what}. Valid options are: {valid_list_options}")
-        
+    #select which tasks to list based on list_what variable, if None then it will list all otherwise use valid_list_options    
     for task in data["tasks"]:
         if data["tasks"][task]["status"] == list_what or list_what is None:
             print(task)
@@ -55,31 +55,57 @@ def list_tasks(data: dict, list_what = None):
             for property in task_dict:
                 print(f"{property} : {task_dict[property]}")
 
+#function used to change status for a task
 def change_status(data: dict,task_id: int, option: int) -> dict:
-    valid_list_options = ["incomplete", "in progress", "complete"]
-    for task in data:
-        if data["tasks"][task]['id'] == task_id:
-            selected_task = task
-    data["tasks"][selected_task]['status'] = valid_list_options[option]
+    valid_list_options = ["incomplete", "in-progress", "complete"]
+    #loop over the tasks to find the task with the task id chosen
+    for task in data["tasks"]:
+        if int(data["tasks"][task]['id']) == int(task_id):
+            data["tasks"][task]['status'] = valid_list_options[option]                
     return data
+
 #</functions>
 
 
 
 
 #<argumentprocessing>
-try:
+if len(sys.argv) - 1 >= 1:
     if sys.argv[1] == 'add':
         try:
             data = add_task(data,sys.argv[2],"incomplete")
         except:
             print("Please input a valid task name")
     elif sys.argv[1] == 'list':
-        list_tasks(data)
-except:
+        if len(sys.argv) - 1 >= 2:
+            list_tasks(data,sys.argv[2])
+        else:
+            list_tasks(data)
+    elif sys.argv[1] == 'set-incomplete':
+        try:
+            data = change_status(data,sys.argv[2],0)
+        except:
+            print("please input a task id")
+         
+    elif sys.argv[1] == 'set-in-progress':
+        try:
+            data = change_status(data,sys.argv[2],1)
+        except: 
+            print("Please input a task id")       
+    elif sys.argv[1] == 'set-complete':
+        try:
+            data = change_status(data,sys.argv[2],2)
+        except:
+            print("Please input a task id")       
+
+
+else:
     print("Please input a working command:")
     print("taskcli.py add taskname: adds a task with name taskname")
-    print("taskcli.py list: lists all tasks and various info about each task")
+    print("taskcli.py list typeoftask: lists all tasks and various info about each task, typeoftask can either be incomplete,in-progress,or complete")
+    print("taskcli.py set-incomplete task_id: sets a task with id of task_id to incomplete if you dont know the id use taskcli.py list to find the id")
+    print("taskcli.py set-in-progress")
+    print("taskcli.py set-complete")
 #</argumentprocessing>
 
 with open("data.json","w") as file:
