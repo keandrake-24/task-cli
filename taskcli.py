@@ -64,6 +64,14 @@ def change_status(data: dict,task_id: int, option: int) -> dict:
             data["tasks"][task]['status'] = valid_list_options[option]                
     return data
 
+def print_help():
+    print("Please input a working command:")
+    print("taskcli.py add taskname: adds a task with name taskname")
+    print("taskcli.py list typeoftask: lists all tasks and various info about each task, typeoftask can either be incomplete,in-progress,or complete")
+    print("taskcli.py set-incomplete task_id: sets a task with id of task_id to incomplete if you dont know the id use taskcli.py list to find the id")
+    print("taskcli.py set-in-progress")
+    print("taskcli.py set-complete")
+
 #</functions>
 
 
@@ -96,16 +104,12 @@ if len(sys.argv) - 1 >= 1:
         try:
             data = change_status(data,sys.argv[2],2)
         except:
-            print("Please input a task id")       
-
+            print("Please input a task id")
+    else:        
+        print_help()
 
 else:
-    print("Please input a working command:")
-    print("taskcli.py add taskname: adds a task with name taskname")
-    print("taskcli.py list typeoftask: lists all tasks and various info about each task, typeoftask can either be incomplete,in-progress,or complete")
-    print("taskcli.py set-incomplete task_id: sets a task with id of task_id to incomplete if you dont know the id use taskcli.py list to find the id")
-    print("taskcli.py set-in-progress")
-    print("taskcli.py set-complete")
+    print_help()
 #</argumentprocessing>
 
 with open("data.json","w") as file:
