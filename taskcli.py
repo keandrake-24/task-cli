@@ -75,7 +75,7 @@ def change_status(data: dict,task_id: int, option: int) -> dict:
 
 def print_help():
     print("Please input a working command:")
-    print("taskcli.py add taskname: adds a task with name taskname")
+    print("taskcli.py add taskname: adds a task with name taskname (BTW if you delete a task creating a new task will cause it to take up the id of that previously deleted task)")
     print("taskcli.py list typeoftask: lists all tasks and various info about each task, typeoftask can either be incomplete,in-progress,or complete")
     print("taskcli.py set-incomplete task_id: sets a task with id of task_id to incomplete if you dont know the id use taskcli.py list to find the id")
     print("taskcli.py set-in-progress")
