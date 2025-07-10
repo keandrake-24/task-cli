@@ -21,10 +21,19 @@ except:
 
 def add_task(data: dict ,task_name: str ,status: str) -> dict:
     cur_date = datetime.now()
-    num_tasks = 0
+    
 
-    for i in data["tasks"]:
-        num_tasks += 1
+    #search for the lowest available id
+    taken_ids = list()
+    for task in data["tasks"]:
+        taken_ids.append(data["tasks"][task]['id'])
+    i = 1
+    while True:
+        if i not in taken_ids:
+            first_available_id = i
+            break
+        else:
+            i += 1
 
     string_time = cur_date.strftime("%Y-%m-%d %H:%M:%S")
     if input("Would you like to add a description to this task? y/n") == 'y':
@@ -33,13 +42,13 @@ def add_task(data: dict ,task_name: str ,status: str) -> dict:
         print("Description will be empty for this task")
         description = ''    
     data["tasks"][task_name] = {
-        "id" : num_tasks + 1,
+        "id" : first_available_id,
         "description" : description,
         "status" : status,
         "CreatedAt" : string_time,
         "UpdatedAt" : string_time                     
         }
-    print(f"Task {task_name} created with ID of {num_tasks + 1}")
+    print(f"Task {task_name} created with ID of {first_available_id}")
     return data
 
 
