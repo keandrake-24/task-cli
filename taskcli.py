@@ -56,9 +56,18 @@ def add_task(data: dict ,task_name: str ,status: str) -> dict: #btw status will 
     print(f"Task {task_name} created with ID of {first_available_id}")
     return data
 def delete_task(data,task_id):
-    del data["tasks"][get_task_name(data,task_id)]
+    task_name = get_task_name(data,task_id)
+    del data["tasks"][task_name]
+    print(f"Deleted task {task_name}")
     return data     
 
+def update_task(data:dict,task_id:str,new_task_name: str):
+    task_name = get_task_name(data,task_id)
+    old_task_values = data["tasks"].pop(task_name)
+    data["tasks"][new_task_name] = old_task_values
+    print(f"Renamed task {task_name} with new name {new_task_name}")
+    return data
+    
 
 def list_tasks(data: dict, list_what = None):
     valid_list_options = ["incomplete", "in-progress", "complete"]
@@ -74,14 +83,17 @@ def list_tasks(data: dict, list_what = None):
 
 #function used to change status for a task
 def change_status(data: dict,task_id: str, option: int) -> dict:
+    task_name = get_task_name(data,task_id)
     valid_list_options = ["incomplete", "in-progress", "complete"]
-    data['tasks'][get_task_name(data,task_id)]['status'] = valid_list_options[option]                
+    data['tasks'][task_name]['status'] = valid_list_options[option]
+    print(f"set task {task_name} status to {valid_list_options[option]}")                
     return data
 
 def print_help():
     print("Please input a working command:")
     print("taskcli.py add taskname: adds a task with name taskname (BTW if you delete a task creating a new task will cause it to take up the id of that previously deleted task)")
     print("taskcli.py list typeoftask: lists all tasks and various info about each task, typeoftask can either be incomplete,in-progress,or complete")
+    print("taskcli.py update task_id task_name: renames task with id of task_id to task_name")
     print("taskcli.py set-incomplete task_id: sets a task with id of task_id to incomplete if you dont know the id use taskcli.py list to find the id")
     print("taskcli.py set-in-progress task_id")
     print("taskcli.py set-complete task_id")
@@ -105,6 +117,14 @@ if len(sys.argv) >= 2:
             data = delete_task(data,sys.argv[2])
         except:
             print("please input a valid task id")
+
+    
+    elif sys.argv[1] == 'update':
+        try:
+            data = update_task(data,sys.argv[2],sys.argv[3])
+        except:
+            print("please input a valid task id and/or valid tasknane")
+
 
     elif sys.argv[1] == 'list':
         if len(sys.argv) - 1 >= 2:
@@ -132,6 +152,7 @@ if len(sys.argv) >= 2:
             data = change_status(data,sys.argv[2],2)
         except:
             print("Please input a task id")
+        
 
     else:        
         print_help()
