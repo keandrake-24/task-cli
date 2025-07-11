@@ -7,6 +7,7 @@ data_template = {
         
     }
 }
+#loading available json into variable data, if not exist create new one with template
 try:
     with open("data.json","r") as file:
         data = json.load(file)
@@ -18,11 +19,15 @@ except:
 
 
 #<functions>
+#the following function is very useful to find a task from the task id
+def get_task_name(data: dict,task_id: str):
+    for task in data["tasks"]:
+        if int(data["tasks"][task]['id']) == int(task_id):
+            return task
 
-def add_task(data: dict ,task_name: str ,status: str) -> dict:
+
+def add_task(data: dict ,task_name: str ,status: str) -> dict: #btw status will always be incomplete when creating a new task so its kind of useless but just incase i add a status parameter
     cur_date = datetime.now()
-    
-
     #search for the lowest available id
     taken_ids = list()
     for task in data["tasks"]:
@@ -50,6 +55,9 @@ def add_task(data: dict ,task_name: str ,status: str) -> dict:
         }
     print(f"Task {task_name} created with ID of {first_available_id}")
     return data
+def delete_task(data,task_id):
+    del data["tasks"][get_task_name(data,task_id)]
+    return data     
 
 
 def list_tasks(data: dict, list_what = None):
@@ -65,12 +73,9 @@ def list_tasks(data: dict, list_what = None):
                 print(f"{property} : {task_dict[property]}")
 
 #function used to change status for a task
-def change_status(data: dict,task_id: int, option: int) -> dict:
+def change_status(data: dict,task_id: str, option: int) -> dict:
     valid_list_options = ["incomplete", "in-progress", "complete"]
-    #loop over the tasks to find the task with the task id chosen
-    for task in data["tasks"]:
-        if int(data["tasks"][task]['id']) == int(task_id):
-            data["tasks"][task]['status'] = valid_list_options[option]                
+    data['tasks'][get_task_name(data,task_id)]['status'] = valid_list_options[option]                
     return data
 
 def print_help():
@@ -78,8 +83,8 @@ def print_help():
     print("taskcli.py add taskname: adds a task with name taskname (BTW if you delete a task creating a new task will cause it to take up the id of that previously deleted task)")
     print("taskcli.py list typeoftask: lists all tasks and various info about each task, typeoftask can either be incomplete,in-progress,or complete")
     print("taskcli.py set-incomplete task_id: sets a task with id of task_id to incomplete if you dont know the id use taskcli.py list to find the id")
-    print("taskcli.py set-in-progress")
-    print("taskcli.py set-complete")
+    print("taskcli.py set-in-progress task_id")
+    print("taskcli.py set-complete task_id")
 
 #</functions>
 
@@ -87,38 +92,54 @@ def print_help():
 
 
 #<argumentprocessing>
-if len(sys.argv) - 1 >= 1:
+if len(sys.argv) >= 2:
     if sys.argv[1] == 'add':
         try:
             data = add_task(data,sys.argv[2],"incomplete")
         except:
             print("Please input a valid task name")
+
+
+    elif sys.argv[1] == 'delete':
+        try:
+            data = delete_task(data,sys.argv[2])
+        except:
+            print("please input a valid task id")
+
     elif sys.argv[1] == 'list':
         if len(sys.argv) - 1 >= 2:
             list_tasks(data,sys.argv[2])
         else:
             list_tasks(data)
+
+
     elif sys.argv[1] == 'set-incomplete':
         try:
             data = change_status(data,sys.argv[2],0)
         except:
             print("please input a task id")
          
+
     elif sys.argv[1] == 'set-in-progress':
         try:
             data = change_status(data,sys.argv[2],1)
-        except: 
-            print("Please input a task id")       
+        except:
+            print("Please input a valid task id")  
+
+
     elif sys.argv[1] == 'set-complete':
         try:
             data = change_status(data,sys.argv[2],2)
         except:
             print("Please input a task id")
+
     else:        
         print_help()
 
+
 else:
     print_help()
+
 #</argumentprocessing>
 
 with open("data.json","w") as file:
