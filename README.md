@@ -10,7 +10,7 @@
 
 
 
-go into the directory where you want it to be installed e.g: `/home/user/dedicated-github-downloads-folder` onn linux
+go into the directory where you want it to be installed e.g: `/home/user/dedicated-github-downloads-folder` on linux
 
 * #### After going into the directory of your choice, run:
 
