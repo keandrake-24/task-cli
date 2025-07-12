@@ -1,6 +1,8 @@
 import sys
 import json
+import os
 from datetime import datetime
+platform = os.name
 data_template = {
     "tasks": 
     {
@@ -90,13 +92,20 @@ def change_status(data: dict,task_id: str, option: int) -> dict:
     return data
 
 def print_help():
+    global platform
+    #run_command variable is used for storing how to run taskcli, on linux there is a dedicated file that you can just execute
+    if platform == 'posix':
+        run_command = './taskcli'
+    else:
+        run_command = 'python taskcli.py'
+
     print("Please input a working command:")
-    print("taskcli.py add taskname: adds a task with name taskname (BTW if you delete a task creating a new task will cause it to take up the id of that previously deleted task)")
-    print("taskcli.py list typeoftask: lists all tasks and various info about each task, typeoftask can either be incomplete,in-progress,or complete")
-    print("taskcli.py update task_id task_name: renames task with id of task_id to task_name")
-    print("taskcli.py set-incomplete task_id: sets a task with id of task_id to incomplete if you dont know the id use taskcli.py list to find the id")
-    print("taskcli.py set-in-progress task_id")
-    print("taskcli.py set-complete task_id")
+    print(f"{run_command} add taskname: adds a task with name taskname ")
+    print(f"{run_command} list typeoftask: lists all tasks and various info about each task, typeoftask can either be incomplete,in-progress,or complete")
+    print(f"{run_command} update task_id task_name: renames task with id of task_id to task_name")
+    print(f"{run_command} set-incomplete task_id: sets a task with id of task_id to incomplete if you dont know the id use {run_command} list to find the id")
+    print(f"{run_command} set-in-progress task_id")
+    print(f"{run_command} set-complete task_id")
 
 #</functions>
 
