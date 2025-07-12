@@ -26,3 +26,7 @@ cd task-cli && ./taskcli
 
 ##### **NOTE:**
 On windows, taskcli is run by doing `python taskcli.py` instead of `./taskcli`
+
+## Usage
+
+
