@@ -8,18 +8,21 @@
 
 **taskcli does not require installation, but commands have to be run in the directory where it was downloaded**
 
-### Installation on Linux
 
-go into the directory where you want it to be installed e.g: `/home/user/dedicated-github-downloads-folder`  (i wont provide a tutorial on how to cd into the directory of your choice, you could just do it in the home directory there wont be a problem)
 
-#### After going into the directory of your choice, run:
+go into the directory where you want it to be installed e.g: `/home/user/dedicated-github-downloads-folder` onn linux
+
+* #### After going into the directory of your choice, run:
 
 ```bash
 git clone https://github.com/keandrake-24/task-cli.git
 ```
 
-#### this should create a new directory task-cli, move into that directory then you can use the tool by running:
+* #### this should create a new directory task-cli, move into that directory and run the linux only file:
 
 ```bash
-./taskcli
+cd task-cli && ./taskcli
 ```
+
+##### **NOTE:**
+On windows, taskcli is run by doing `python taskcli.py` instead of `./taskcli`
