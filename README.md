@@ -29,4 +29,14 @@ On windows, taskcli is run by doing `python taskcli.py` instead of `./taskcli`
 
 ## Usage
 
+### Creating a new task
+
+to create a new task, run:
+```bash
+./taskcli add task
+```
+or on Windows:
+```
+python taskcli.py add task
+```
 
