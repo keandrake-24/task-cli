@@ -72,13 +72,16 @@ def update_task(data:dict,task_id:str,new_task_name: str):
     
 
 def list_tasks(data: dict, list_what = None):
+    if list_what == '':
+        list_what = None
     valid_list_options = ["incomplete", "in-progress", "complete"]
     if list_what not in valid_list_options and list_what is not None:
         print(f"Invalid list option: {list_what}. Valid options are: {valid_list_options}")
     #select which tasks to list based on list_what variable, if None then it will list all otherwise use valid_list_options    
     for task in data["tasks"]:
         if data["tasks"][task]["status"] == list_what or list_what is None:
-            print(task)
+            print("---------------")
+            print(task,':')
             task_dict = data["tasks"][task]
             for property in task_dict:
                 print(f"{property} : {task_dict[property]}")
