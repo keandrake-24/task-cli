@@ -26,34 +26,37 @@ def get_task_name(data: dict,task_id: str):
     for task in data["tasks"]:
         if int(data["tasks"][task]['id']) == int(task_id):
             return task
-
-
-def add_task(data: dict ,task_name: str ,status: str) -> dict: #btw status will always be incomplete when creating a new task so its kind of useless but just incase i add a status parameter
+        
+def get_cur_time_formatted() -> str: 
     cur_date = datetime.now()
+    string_time = cur_date.strftime("%Y-%m-%d %H:%M:%S")
+    return string_time
+def add_task(data: dict ,task_name: str ,status: str) -> dict: #btw status will always be incomplete when creating a new task so its kind of useless but just incase i add a status parameter
     #search for the lowest available id
     taken_ids = list()
     for task in data["tasks"]:
         taken_ids.append(data["tasks"][task]['id'])
+
     i = 1
     while True:
         if i not in taken_ids:
             first_available_id = i
             break
         else:
-            i += 1
+            i += 1    
 
-    string_time = cur_date.strftime("%Y-%m-%d %H:%M:%S")
     if input("Would you like to add a description to this task? y/n") == 'y':
         description = input("Please type in your description...")
     else:
         print("Description will be empty for this task")
-        description = ''    
+        description = ''  
+    string_time = get_cur_time_formatted()
     data["tasks"][task_name] = {
         "id" : first_available_id,
         "description" : description,
         "status" : status,
         "CreatedAt" : string_time,
-        "UpdatedAt" : string_time                     
+        "UpdatedAt" : string_time,                     
         }
     print(f"Task {task_name} created with ID of {first_available_id}")
     return data
@@ -65,6 +68,7 @@ def delete_task(data,task_id):
 
 def update_task(data:dict,task_id:str,new_task_name: str):
     task_name = get_task_name(data,task_id)
+    data['tasks'][task_name]["UpdatedAt"] = get_cur_time_formatted()
     old_task_values = data["tasks"].pop(task_name)
     data["tasks"][new_task_name] = old_task_values
     print(f"Renamed task {task_name} with new name {new_task_name}")
@@ -91,6 +95,7 @@ def change_status(data: dict,task_id: str, option: int) -> dict:
     task_name = get_task_name(data,task_id)
     valid_list_options = ["incomplete", "in-progress", "complete"]
     data['tasks'][task_name]['status'] = valid_list_options[option]
+    data['tasks'][task_name]['UpdatedAt'] = get_cur_time_formatted()
     print(f"set task {task_name} status to {valid_list_options[option]}")                
     return data
 
