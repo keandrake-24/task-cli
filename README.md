@@ -1,8 +1,13 @@
 # taskcli - A Simple To Do List App
 
+<a href="https://roadmap.sh/projects/task-tracker" target="_blank">
+<img src="preview.gif" alt="Preview">
+</a>
+
+
 ## Description
 
-**taskcli is a to do list CLI command tool, allowing users to write down and manage their tasks effectively. taskcli is great for simple usage. **
+**taskcli is a to do list CLI command tool, allowing users to write down and manage their tasks effectively. taskcli is great for simple usage.**
 
 ## Installation
 
