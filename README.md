@@ -39,4 +39,40 @@ or on Windows:
 ```
 python taskcli.py add task
 ```
+This will create a new task with an ID, **In future operations with this task, input the ID instead of the task name**
 
+### Listing Tasks
+
+To list all tasks, you can run:
+
+```bash
+./taskcli list
+```
+or on Windows:
+```
+python taskcli.py list
+```
+
+This will list all tasks, each task has these 5 attributes which will be shown:
+* ID
+* Description
+* Status
+* CreatedAt
+* UpdatedAt
+
+### Listing Specific Types of Tasks
+  
+To list specfic types of tasks, you can run:
+
+```bash
+./taskcli list type-of-task
+```
+or on Windows:
+```
+python taskcli.py list type-of-task
+```
+
+`type-of-task` can be of these 3 types:
+* `incomplete`
+* `in-progress` 
+* `complete` 
