@@ -1,9 +1,6 @@
 # taskcli - A Simple To Do List App
 
-<a href="https://roadmap.sh/projects/task-tracker" target="_blank">
-<img src="preview.gif" alt="Preview">
-</a>
-
+![AltText](https://github.com/keandrake-24/task-cli/blob/master/preview.gif)
 
 ## Description
 
