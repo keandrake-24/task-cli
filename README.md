@@ -1,6 +1,6 @@
 # taskcli - A Simple To Do List App
 
-![AltText](https://github.com/keandrake-24/task-cli/blob/master/preview.gif)
+![Alt Text](https://github.com/keandrake-24/task-cli/blob/master/preview.gif)
 
 ## Description
 
@@ -26,8 +26,8 @@ git clone https://github.com/keandrake-24/task-cli.git
 cd task-cli && ./taskcli
 ```
 
-##### **NOTE:**
-On windows, taskcli is run by doing `python taskcli.py` instead of `./taskcli`
+> **_NOTE:_**
+> On windows, taskcli is run by doing `python taskcli.py` instead of `./taskcli`
 
 ## Usage
 
