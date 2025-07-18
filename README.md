@@ -41,8 +41,11 @@ or on Windows:
 ```
 python taskcli.py add task
 ```
-This will create a new task with an ID, **In future operations with this task, input the ID instead of the task name**
+This will create a new task with an ID.
 
+> **_NOTE:_**
+>  **In future operations with this task, input the ID instead of the task name**
+> 
 ### Updating a Tasks Status
 
 There are **3** possible statuses for a task:
