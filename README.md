@@ -31,7 +31,7 @@ cd task-cli && ./taskcli
 
 ## Usage
 
-### Creating a new task
+### Creating a New Task
 
 to create a new task, run:
 ```bash
@@ -43,6 +43,31 @@ python taskcli.py add task
 ```
 This will create a new task with an ID, **In future operations with this task, input the ID instead of the task name**
 
+### Updating a Tasks Status
+
+There are **3** possible statuses for a task:
+1. Incomplete
+2. Complete
+3. In-progress
+
+to set a tasks status, run:
+```bash
+./taskcli set-(status) task-id
+```
+or on Windows:
+```
+python taskcli.py set-(status) task-id
+```
+`(status)` should be replaced with one of these **3** values:
+* `incomplete`
+* `in-progress` 
+* `complete` 
+
+For example:
+```bash
+./taskcli set-in-progress 1
+```
+   
 ### Listing Tasks
 
 To list all tasks, you can run:
@@ -78,3 +103,4 @@ python taskcli.py list type-of-task
 * `incomplete`
 * `in-progress` 
 * `complete` 
+
