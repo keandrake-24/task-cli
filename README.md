@@ -70,7 +70,18 @@ For example:
 ```bash
 ./taskcli set-in-progress 1
 ```
-   
+
+### Renaming a task
+
+to rename a task, run:
+```bash
+./taskcli update task-id new-name
+```
+or on Windows:
+```
+python taskcli.py update task-id new-name
+```
+
 ### Listing Tasks
 
 To list all tasks, you can run:
