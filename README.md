@@ -118,3 +118,17 @@ python taskcli.py list type-of-task
 * `in-progress` 
 * `complete` 
 
+
+### Deleting a Task
+
+To delete a task, you can run:
+
+```bash
+./taskcli delete task-id
+```
+or on Windows:
+```
+python taskcli.py delete task-id
+```
+
+> **NOTE:** When you delete task, the next created task will take up that deleted task's id
